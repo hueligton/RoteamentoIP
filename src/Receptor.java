@@ -17,14 +17,30 @@ public class Receptor implements Runnable {
     private DatagramSocket serverSocket;
     private volatile boolean running = true;
     private static ArrayList<Thread> servicingThreads;
+    private static TabelaRoteamento tabelaRoteamento;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Insira o número da porta do proxy:");
-        int port = scan.nextInt();
+        int port = Integer.parseInt(args[0]);
+
+        carregarTabelaRoteamento(args);
+
         LoggerSetup.setup();
         Receptor myProxy = new Receptor(port);
         myProxy.listen();
+    }
+
+    private static void carregarTabelaRoteamento(String[] args) {
+        tabelaRoteamento = new TabelaRoteamento();
+        String[] linha;
+        for (int i = 1; i < args.length; i++) {
+            linha = args[i].split("/");
+            if (linha.length < 4) {
+                System.out.println("Entrada: " + args[i] + " inválida.");
+                System.exit(0);
+            }
+            tabelaRoteamento.inserirLinhaRoteamento(linha[0], linha[1], linha[2], linha[3]);
+        }
     }
 
     /**
