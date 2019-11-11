@@ -17,7 +17,7 @@ public class Receptor implements Runnable {
     private DatagramSocket serverSocket;
     private volatile boolean running = true;
     private static ArrayList<Thread> servicingThreads;
-    private static TabelaRoteamento tabelaRoteamento;
+    public static TabelaRoteamento tabelaRoteamento;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);

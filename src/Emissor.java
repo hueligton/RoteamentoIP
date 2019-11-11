@@ -7,21 +7,14 @@ import java.net.InetAddress;
 class Emissor {
 
     public static void main(String[] args) throws Exception {
-        BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         DatagramSocket clientSocket = new DatagramSocket();
-        InetAddress IPAddress = InetAddress.getByName("127.0.0.1"); // ou IP do servidor: 127.0.0.1 (localhost)
+        InetAddress IPAddress = InetAddress.getByName(args[0]);
+        int port = Integer.parseInt(args[1]);
 
-        byte[] receiveData = new byte[1024];
-
-        String sentence = inFromUser.readLine();
+        String sentence = args[2] + "/" + args[3] + "/" + args[4];
         byte[] sendData = sentence.getBytes();
-        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
         clientSocket.send(sendPacket);
-        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-        clientSocket.receive(receivePacket);
-
-        String modifiedSentence = new String(receivePacket.getData());
-        System.out.println("From Server: " + modifiedSentence);
         clientSocket.close();
 
     }

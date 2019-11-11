@@ -5,11 +5,11 @@ public class TabelaRoteamento {
     List<LinhaRoteamento> tabela;
 
     public TabelaRoteamento() {
-        this.tabela = new ArrayList<LinhaRoteamento>();
+        this.tabela = new ArrayList<>();
     }
 
     public void inserirLinhaRoteamento(String redeDestino, String mascara, String gateway, String portaInterface) {
-        tabela.add(new LinhaRoteamento(redeDestino, mascara, gateway, portaInterface));
+        tabela.add(new LinhaRoteamento(redeDestino, mascara, gateway, Integer.parseInt(portaInterface)));
     }
 
     public List<LinhaRoteamento> getTabela() {
@@ -21,9 +21,9 @@ class LinhaRoteamento {
     private String RedeDestino;
     private String Mascara;
     private String Gateway;
-    private String PortaInterface;
+    private int PortaInterface;
 
-    public LinhaRoteamento(String redeDestino, String mascara, String gateway, String portaInterface) {
+    public LinhaRoteamento(String redeDestino, String mascara, String gateway, int portaInterface) {
         this.RedeDestino = redeDestino;
         this.Mascara = mascara;
         this.Gateway = gateway;
@@ -42,7 +42,7 @@ class LinhaRoteamento {
         return Gateway;
     }
 
-    public String getPortaInterface() {
+    public int getPortaInterface() {
         return PortaInterface;
     }
 }
