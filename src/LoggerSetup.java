@@ -1,7 +1,7 @@
-/***********************************************
- * @author Felipe Alves Matos Caggi
+/*
+  @author Felipe Alves Matos Caggi
  * @author Hueligton Pereira de Melo
- * Trabalho 1
+ * Trabalho 2 - Roteamento IP
  * Professora: Hana Karina S. Rubinsztejn
  */
 
@@ -12,13 +12,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class LoggerSetup {
+class LoggerSetup {
 
     private static final String LOGFILE_NAME = "access.log";
 
-    static public void setup() {
-        System.setProperty("java.util.logging.SimpleFormatter.format",
-                "[" + new Date().toString() + "] " + "%5$s%n");
+    static void setup() {
+//        System.setProperty("java.util.logging.SimpleFormatter.format",
+//                "[" + new Date().toString() + "] " + "%5$s%n");
+        System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s%n");
 
         Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         logger.setLevel(Level.ALL);
