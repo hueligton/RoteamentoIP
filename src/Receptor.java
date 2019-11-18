@@ -1,7 +1,7 @@
-/***********************************************
- * @author Felipe Alves Matos Caggi
+/*
+  @author Felipe Alves Matos Caggi
  * @author Hueligton Pereira de Melo
- * Trabalho 2
+ * Trabalho 2 - Roteamento IP
  * Professora: Hana Karina S. Rubinsztejn
  */
 
@@ -17,7 +17,7 @@ public class Receptor implements Runnable {
     private DatagramSocket serverSocket;
     private volatile boolean running = true;
     private static ArrayList<Thread> servicingThreads;
-    public static TabelaRoteamento tabelaRoteamento;
+    static TabelaRoteamento tabelaRoteamento;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -48,7 +48,7 @@ public class Receptor implements Runnable {
      *
      * @param port
      */
-    public Receptor(int port) {
+    private Receptor(int port) {
         servicingThreads = new ArrayList<>();
         new Thread(this).start();
 

@@ -1,18 +1,25 @@
+/*
+  @author Felipe Alves Matos Caggi
+ * @author Hueligton Pereira de Melo
+ * Trabalho 2 - Roteamento IP
+ * Professora: Hana Karina S. Rubinsztejn
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabelaRoteamento {
-    List<LinhaRoteamento> tabela;
+class TabelaRoteamento {
+    private List<LinhaRoteamento> tabela;
 
-    public TabelaRoteamento() {
+    TabelaRoteamento() {
         this.tabela = new ArrayList<>();
     }
 
-    public void inserirLinhaRoteamento(String redeDestino, String mascara, String gateway, String portaInterface) {
+    void inserirLinhaRoteamento(String redeDestino, String mascara, String gateway, String portaInterface) {
         tabela.add(new LinhaRoteamento(redeDestino, mascara, gateway, Integer.parseInt(portaInterface)));
     }
 
-    public List<LinhaRoteamento> getTabela() {
+    List<LinhaRoteamento> getTabela() {
         return tabela;
     }
 }
@@ -23,26 +30,26 @@ class LinhaRoteamento {
     private String Gateway;
     private int PortaInterface;
 
-    public LinhaRoteamento(String redeDestino, String mascara, String gateway, int portaInterface) {
+    LinhaRoteamento(String redeDestino, String mascara, String gateway, int portaInterface) {
         this.RedeDestino = redeDestino;
         this.Mascara = mascara;
         this.Gateway = gateway;
         this.PortaInterface = portaInterface;
     }
 
-    public String getRedeDestino() {
+    String getRedeDestino() {
         return RedeDestino;
     }
 
-    public String getMascara() {
+    String getMascara() {
         return Mascara;
     }
 
-    public String getGateway() {
+    String getGateway() {
         return Gateway;
     }
 
-    public int getPortaInterface() {
+    int getPortaInterface() {
         return PortaInterface;
     }
 }

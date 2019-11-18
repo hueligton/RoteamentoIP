@@ -1,5 +1,14 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+/*
+  @author Felipe Alves Matos Caggi
+ * @author Hueligton Pereira de Melo
+ * Trabalho 2 - Roteamento IP
+ * Professora: Hana Karina S. Rubinsztejn
+ */
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -11,11 +20,27 @@ class Emissor {
         InetAddress IPAddress = InetAddress.getByName(args[0]);
         int port = Integer.parseInt(args[1]);
 
-        String sentence = args[2] + "/" + args[3] + "/" + args[4];
-        byte[] sendData = sentence.getBytes();
+        Pacote pacote = new Pacote(args[2], args[3], args[4]);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out;
+        byte[] sendData;
+
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(pacote);
+            out.flush();
+            sendData = bos.toByteArray();
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
         clientSocket.send(sendPacket);
         clientSocket.close();
-
     }
 }
