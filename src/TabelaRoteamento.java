@@ -32,9 +32,19 @@ class LinhaRoteamento {
 
     LinhaRoteamento(String redeDestino, String mascara, String gateway, int portaInterface) {
         this.RedeDestino = redeDestino;
-        this.Mascara = mascara;
+        this.Mascara = validateMask(mascara);
         this.Gateway = gateway;
         this.PortaInterface = portaInterface;
+    }
+
+    private String validateMask(String mascara) {
+        if (!mascara.contains(".")) {
+            int cidr = Integer.parseInt(mascara);
+            if (cidr >= 0 && cidr <= 32) {
+                return SubnetUtils.formatCidrNotationToMask(cidr);
+            }
+        }
+        return mascara;
     }
 
     String getRedeDestino() {
@@ -43,6 +53,10 @@ class LinhaRoteamento {
 
     String getMascara() {
         return Mascara;
+    }
+
+    int getCidrNotation() {
+        return SubnetUtils.formatMaskToCidrNotation(getMascara());
     }
 
     String getGateway() {
