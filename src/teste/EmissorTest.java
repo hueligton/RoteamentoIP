@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EmissorTest {
+class EmissorTest {
 
     @Test
     void receptorDireto() throws IOException {

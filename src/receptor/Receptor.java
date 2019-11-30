@@ -14,7 +14,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Receptor implements Runnable {
+class Receptor implements Runnable {
 
     private DatagramSocket serverSocket;
     private volatile boolean running = true;

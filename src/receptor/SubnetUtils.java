@@ -105,7 +105,7 @@ public class SubnetUtils {
             return format(toArray(high()));
         }
 
-        public int getAddressCount() {
+        int getAddressCount() {
             return (broadcast() - low());
         }
 
@@ -190,7 +190,7 @@ public class SubnetUtils {
      * Convert a packed integer address into a 4-element array
      */
     private static int[] toArray(int val) {
-        int ret[] = new int[4];
+        int[] ret = new int[4];
         for (int j = 3; j >= 0; --j)
             ret[j] |= ((val >>> 8 * (3 - j)) & (0xff));
         return ret;
@@ -224,7 +224,7 @@ public class SubnetUtils {
      * Count the number of 1-bits in a 32-bit integer using a divide-and-conquer strategy
      * see Hacker's Delight section 5.1
      */
-    static int pop(int x) {
+    private static int pop(int x) {
         x = x - ((x >>> 1) & 0x55555555);
         x = (x & 0x33333333) + ((x >>> 2) & 0x33333333);
         x = (x + (x >>> 4)) & 0x0F0F0F0F;
