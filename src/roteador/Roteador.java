@@ -4,7 +4,7 @@
  * Trabalho 2 - Roteamento IP
  * Professora: Hana Karina S. Rubinsztejn
  */
-package receptor;
+package roteador;
 
 import log.LoggerSetup;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Receptor implements Runnable {
+class Roteador implements Runnable {
 
     private DatagramSocket serverSocket;
     private volatile boolean running = true;
@@ -28,7 +28,7 @@ class Receptor implements Runnable {
         carregarTabelaRoteamento(args);
 
         LoggerSetup.setup();
-        Receptor myProxy = new Receptor(port);
+        Roteador myProxy = new Roteador(port);
         myProxy.listen();
     }
 
@@ -50,7 +50,7 @@ class Receptor implements Runnable {
      *
      * @param port
      */
-    private Receptor(int port) {
+    private Roteador(int port) {
         servicingThreads = new ArrayList<>();
         new Thread(this).start();
 

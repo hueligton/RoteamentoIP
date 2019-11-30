@@ -4,7 +4,7 @@
  * Trabalho 2 - Roteamento IP
  * Professora: Hana Karina S. Rubinsztejn
  */
-package receptor;
+package roteador;
 
 import pacote.IPv4;
 import java.net.DatagramPacket;
@@ -35,7 +35,7 @@ class RequestHandler implements Runnable {
             pacote.setTtl((byte) (pacote.getTtl() - 1));
 
             if (pacote.getTtl() > 0) {
-                Stream<LinhaRoteamento> linhaRoteamentoStream = Receptor.tabelaRoteamento.getTabela().stream().filter(linhaRoteamento -> {
+                Stream<LinhaRoteamento> linhaRoteamentoStream = Roteador.tabelaRoteamento.getTabela().stream().filter(linhaRoteamento -> {
                     String networkAddress = new SubnetUtils(pacote.getDestinationAddress().toString(), linhaRoteamento.getMascara()).getInfo().getNetworkAddress();
                     return networkAddress.equals(linhaRoteamento.getRedeDestino());
                 });

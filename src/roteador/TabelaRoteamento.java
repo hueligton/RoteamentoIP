@@ -1,4 +1,4 @@
-package receptor;/*
+package roteador;/*
   @author Felipe Alves Matos Caggi
  * @author Hueligton Pereira de Melo
  * Trabalho 2 - Roteamento IP
