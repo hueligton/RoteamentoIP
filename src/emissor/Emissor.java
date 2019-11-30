@@ -6,11 +6,7 @@
  */
 package emissor;
 
-import pacote.BasePacket;
-import pacote.Data;
 import pacote.IPv4;
-import pacote.UDP;
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -22,15 +18,12 @@ public class Emissor {
         InetAddress IPAddress = InetAddress.getByName(args[0]);
         int port = Integer.parseInt(args[1]);
 
-        BasePacket iPv4 = new IPv4()
+        IPv4 iPv4 = new IPv4()
                 .setTtl((byte) 5)
                 .setSourceAddress(args[2])
-                .setDestinationAddress(args[3]);
+                .setDestinationAddress(args[3])
+                .setPayload(args[4].getBytes());
 
-        iPv4.setPayload(new UDP()
-                .setSourcePort((short) 80)
-                .setDestinationPort((short) port)
-                .setPayload(new Data(args[4].getBytes())));
         byte[] packet = iPv4.serialize();
 
         DatagramPacket sendPacket = new DatagramPacket(packet, packet.length, IPAddress, port);

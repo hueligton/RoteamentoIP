@@ -25,10 +25,10 @@ class TabelaRoteamento {
 }
 
 class LinhaRoteamento {
-    private String RedeDestino;
-    private String Mascara;
-    private String Gateway;
-    private int PortaInterface;
+    private final String RedeDestino;
+    private final String Mascara;
+    private final String Gateway;
+    private final int PortaInterface;
 
     LinhaRoteamento(String redeDestino, String mascara, String gateway, int portaInterface) {
         this.RedeDestino = redeDestino;

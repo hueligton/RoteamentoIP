@@ -6,11 +6,7 @@
  */
 package receptor;
 
-import pacote.IPacket;
 import pacote.IPv4;
-import pacote.PacketParsingException;
-
-import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -19,7 +15,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class RequestHandler implements Runnable {
+class RequestHandler implements Runnable {
     private final DatagramSocket serverSocket;
     private DatagramPacket receivePacket;
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -44,7 +40,7 @@ public class RequestHandler implements Runnable {
                     return networkAddress.equals(linhaRoteamento.getRedeDestino());
                 });
 
-                Optional<LinhaRoteamento> longestMatch = linhaRoteamentoStream.sorted(Comparator.comparing(LinhaRoteamento::getCidrNotation).reversed()).findFirst();
+                Optional<LinhaRoteamento> longestMatch = linhaRoteamentoStream.max(Comparator.comparing(LinhaRoteamento::getCidrNotation));
 
                 String gateway;
 
@@ -54,9 +50,7 @@ public class RequestHandler implements Runnable {
                     gateway = longestMatch.get().getGateway();
 
                     if (gateway.equals("0.0.0.0")) {
-                        IPacket pacoteUDP = pacote.getPayload();
-                        IPacket pacoteDados = pacoteUDP.getPayload();
-                        String dados = new String(pacoteDados.serialize());
+                        String dados = new String(pacote.getPayload());
                         addLogInfo(String.format("destino alcançado. De %s para %s : %s", pacote.getSourceAddress(), pacote.getDestinationAddress(), dados));
                     } else {
                         InetAddress IPAddress = InetAddress.getByName(gateway);
@@ -75,7 +69,7 @@ public class RequestHandler implements Runnable {
                 addLogInfo(String.format("tempo de vida excedido em trânsito, descartando o pacote para %s", pacote.getDestinationAddress()));
             }
 
-        } catch (IOException | PacketParsingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

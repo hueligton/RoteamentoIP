@@ -3,6 +3,11 @@
 
 # Log file
 *.log
+/access.log.1
+/access.log.1.lck
+/access.log.2
+/access.log.2.lck
+/access.log.lck
 
 # BlueJ files
 *.ctxt
